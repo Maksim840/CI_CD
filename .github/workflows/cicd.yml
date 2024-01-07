@@ -1,0 +1,33 @@
+name: deploy prod
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 21.x.x
+      - run: npm install
+      - run: npm test
+  
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on server
+        run: |
+          CODE=$(curl --write-out '%{http_code}' --silent --output /dev/null "${{ secrets.API_HOOK_URL }}")
+          echo "$CODE"
+          if [ "$CODE" -ne 200 ];
+          then
+            echo "FAILTURE" && exit 1
+          else
+            echo "SUCCESS"  
+          fi

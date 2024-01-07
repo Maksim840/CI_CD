@@ -56,7 +56,7 @@ export const deleteUser = async (req, res) => {
             res.status(500).send('User not found')
         }
         res.send({
-            message: "Post has been successfuly deleted!"
+            message: "User has been successfuly deleted!"
         });
 
     } catch (error) {
@@ -81,7 +81,7 @@ export const updateUser = async (req, res) => {
             age: req.body.age,
         })
         res.send({
-            message: "Post has been successfuly updated!"
+            message: "User has been successfuly updated!"
         });
 
     } catch (error) {
