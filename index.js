@@ -29,4 +29,6 @@ app.listen(8000, (err) => {
   console.log("Server is running on port 8000");
 });
 
+export default app;
+
 

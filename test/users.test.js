@@ -2,12 +2,14 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 const expect =  chai.expect
 const baseUrl = "http://localhost:8000/api"
-
+import app from '../index.js';
 
 const usersId = '4'
 //const appServer = app.callback
 chai.use(chaiHttp);
 describe("Test", function(){
+    this.timeout(10000);
+
     //var usersId;
     var usersBody = {
             "id" : "4",
@@ -15,10 +17,16 @@ describe("Test", function(){
             "surname": "rom",
             "age": "1834534"
     };
+    this.beforeAll(() => {
+        setTimeout(() => {
+
+        }, 5000)
+    })
 
     it('create a new user', function(done) {
-        chai.request(baseUrl)
-        .post('/users')
+        this.timeout(10000);
+        chai.request(app)
+        .post('/api/users')
         .send(usersBody)
         .end(function (err, res) {
             expect(res).to.have.status(200);
@@ -32,8 +40,10 @@ describe("Test", function(){
     });
 
     it('get all users', function(done) {
-        chai.request(baseUrl)
-        .get('/users')
+        this.timeout(10000);
+
+        chai.request(app)
+        .get('/api/users')
         .end(function (err, res) {
             expect(res).to.have.status(200);
             expect(res.body).to.be.an("array");
@@ -45,8 +55,10 @@ describe("Test", function(){
     });
 
     it('get one user', function(done){
-        chai.request(baseUrl)
-        .get('/users/'+usersId)
+        this.timeout(10000);
+
+        chai.request(app)
+        .get('/api/users/'+usersId)
         .end(function (err, res) {
             expect(res).to.have.status(200);
             
@@ -58,8 +70,10 @@ describe("Test", function(){
     });
 
     it('update an user', function(done){
-        chai.request(baseUrl)
-        .put('/users/'+usersId)
+        this.timeout(10000);
+
+        chai.request(app)
+        .put('/api/users/'+usersId)
         .end(function (err, res) {
             expect(res).to.have.status(200);
             expect(res.body.message).to.equal("User has been successfuly updated!");
@@ -68,8 +82,10 @@ describe("Test", function(){
     });
 
     it('delete an user', function(done){
-        chai.request(baseUrl)
-        .delete('/users/'+usersId)
+        this.timeout(10000);
+
+        chai.request(app)
+        .delete('/api/users/'+usersId)
         .end(function (err, res) {
             expect(res).to.have.status(200);
             expect(res.body.message).to.equal("User has been successfuly deleted!");
