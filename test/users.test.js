@@ -1,8 +1,8 @@
 import chai from 'chai';
-
 import chaiHttp from 'chai-http';
 const expect =  chai.expect
 const baseUrl = "http://localhost:8000/api"
+
 
 const usersId = '4'
 //const appServer = app.callback
